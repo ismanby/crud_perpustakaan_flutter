@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:crud_perpustakaan/insert.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 // import 'insert.dart';
@@ -9,6 +10,7 @@ class BookListPage extends StatefulWidget {
   const BookListPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _BookListPageState createState() => _BookListPageState();
 }
 
@@ -37,7 +39,7 @@ class _BookListPageState extends State<BookListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Daftar Buku'),
+        title: const Text('Book List'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -115,6 +117,18 @@ class _BookListPageState extends State<BookListPage> {
                 );
               },
           ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Navigasi ke halaman insert buku
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddBookPage()),
+          ).then((_) {
+            fetchBooks(); // Refresh data setelah kembali
+          });
+        },
+        child: const Icon(Icons.add),
+      )
     );
   }
 }
